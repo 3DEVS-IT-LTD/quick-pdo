@@ -1,0 +1,34 @@
+{
+  "name": "three_devs/quick_pdo",
+  "type": "library",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Tanmay Chakrabarty",
+      "email": "cse.tanmay@gmail.com"
+    },
+    {
+      "name": "Tanmay Chakrabarty",
+      "email": "tanmay@3-devs.com"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "ext-pdo": "*",
+    "three_devs/call_return": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ThreeDevs\\QuickPdo\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ThreeDevs\\QuickPdoIntegrationTests\\": "tests"
+    }
+  },
+  "description": "PDO"
+}
