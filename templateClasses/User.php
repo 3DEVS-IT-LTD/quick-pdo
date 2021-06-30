@@ -10,6 +10,11 @@ class User
     private string $user_name;
     private string $user_gender;
 
+    public function justAMethod()
+    {
+        return 'Now I know my ABC, Next time wont you sing with me :)';
+    }
+
     /**
      * @return int
      */
