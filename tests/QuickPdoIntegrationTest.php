@@ -284,6 +284,18 @@ class QuickPdoIntegrationTest extends TestCase
         }
     }
 
+    public function testSelectClassSingle()
+    {
+        $ret = self::$connection->selectClass('SELECT * FROM users WHERE pk_user_id = :user_id', 'ThreeDevs\templateClasses\User', ['user_id' => 2], true);
+        self::assertTrue($ret->is_success());
+        if($ret->is_success()){
+            $data = $ret->get_data();
+            $original_data = (new User())->setPkUserId(self::$dataSet[1]['pk_user_id'])->setUserName(self::$dataSet[1]['user_name'])->setUserGender(self::$dataSet[1]['user_gender']);
+
+            self::assertEquals($original_data, $data);
+        }
+    }
+
     public function testUpdate()
     {
         $ret = self::$connection->update('users', ['user_name' => 'Tanmay Chakrabarty'], " pk_user_id = :user_id", ['user_id' => 1]);

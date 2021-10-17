@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c483fe198c2e437dc67415a8d2270ae5",
+    "content-hash": "b3df8f42facc4aa4d97f65a7dcc9a4e4",
     "packages": [
         {
             "name": "three_devs/call_return",
-            "version": "v1.0.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/3DEVS-IT-LTD/Call-Return.git",
-                "reference": "beb8664ce471c34f04c7781c7045009830c379f6"
+                "reference": "d833b2e7ca7b4d6ac87f120309d46854c3575400"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/3DEVS-IT-LTD/Call-Return/zipball/beb8664ce471c34f04c7781c7045009830c379f6",
-                "reference": "beb8664ce471c34f04c7781c7045009830c379f6",
+                "url": "https://api.github.com/repos/3DEVS-IT-LTD/Call-Return/zipball/d833b2e7ca7b4d6ac87f120309d46854c3575400",
+                "reference": "d833b2e7ca7b4d6ac87f120309d46854c3575400",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3"
+                "php": "^7.4"
             },
             "require-dev": {
                 "phpunit/phpunit": "*"
@@ -49,9 +49,9 @@
             "description": "Call Return",
             "support": {
                 "issues": "https://github.com/3DEVS-IT-LTD/Call-Return/issues",
-                "source": "https://github.com/3DEVS-IT-LTD/Call-Return/tree/v1.0.0"
+                "source": "https://github.com/3DEVS-IT-LTD/Call-Return/tree/v2.0.0"
             },
-            "time": "2021-06-09T06:15:27+00:00"
+            "time": "2021-06-30T07:19:48+00:00"
         }
     ],
     "packages-dev": [
@@ -2157,5 +2157,5 @@
         "ext-pdo": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }

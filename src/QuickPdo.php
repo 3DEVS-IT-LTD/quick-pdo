@@ -135,7 +135,7 @@ class QuickPdo
                     $data = $ret->get_data()->fetchAll(PDO::FETCH_GROUP|PDO::FETCH_COLUMN);
                     break;
                 case "class":
-                    $data = $ret->get_data()->fetchAll(PDO::FETCH_CLASS, $class);
+                    $data = $single ? $ret->get_data()->fetchObject($class) : $ret->get_data()->fetchAll(PDO::FETCH_CLASS, $class);
                     break;
                 default:
                     $data = [];
@@ -189,9 +189,9 @@ class QuickPdo
         return $this->select('group_indexed_column', $sql, $replacers);
     }
 
-    public function selectClass(string $sql, string $class, array $replacers = [])
+    public function selectClass(string $sql, string $class, array $replacers = [], bool $single = false)
     {
-        return $this->select('class', $sql, $replacers, $class);
+        return $this->select('class', $sql, $replacers, $class, $single);
     }
 
     public function insert(string $table, array $data)
