@@ -217,6 +217,77 @@ class QuickPdo
 
         return $ret;
     }
+    public function insert_multiple(string $table, array $rows)
+    {
+        $ret = new CallReturn();
+
+        if (empty($rows)) {
+            $ret->add_error('No data provided');
+            return $ret;
+        }
+
+        // Ensure numeric array of rows
+        if (!$this->is_list_array($rows)) {
+            $ret->add_error('Data must be a numeric array of associative arrays');
+            return $ret;
+        }
+
+        // First row determines columns
+        $columns = array_keys($rows[0]);
+
+        // Validate all rows have same columns
+        foreach ($rows as $index => $row) {
+            if (array_keys($row) !== $columns) {
+                $ret->add_error("Column mismatch at row index {$index}");
+                return $ret;
+            }
+        }
+
+        try {
+
+            $placeholders = [];
+            $bindings = [];
+
+            foreach ($rows as $rowIndex => $row) {
+
+                $rowPlaceholders = [];
+
+                foreach ($row as $column => $value) {
+
+                    $placeholder = ':' . $column . '_' . $rowIndex;
+
+                    $rowPlaceholders[] = $placeholder;
+
+                    $bindings[$placeholder] = $value;
+                }
+
+                $placeholders[] = '(' . implode(',', $rowPlaceholders) . ')';
+            }
+
+            $sql = '
+            INSERT INTO ' . $table . '
+            (`' . implode('`,`', $columns) . '`)
+            VALUES ' . implode(',', $placeholders);
+
+            $statement = $this->connection->prepare($sql);
+
+            foreach ($bindings as $placeholder => $value) {
+                $statement->bindValue($placeholder, $value);
+            }
+
+            $statement->execute();
+
+            $ret->add_success([
+                'inserted_rows' => $statement->rowCount(),
+                'first_insert_id' => $this->connection->lastInsertId()
+            ]);
+
+        } catch (PDOException $e) {
+            $ret->add_error($e->getMessage());
+        }
+
+        return $ret;
+    }
 
     public function update(string $table, array $data, string $condition_part = '', array $condition_values = [])
     {
@@ -310,5 +381,16 @@ class QuickPdo
     public function closeConnection()
     {
         $this->connection = null;
+    }
+
+    private function is_list_array(array $array): bool
+    {
+        // PHP 8.1+
+        if (function_exists('array_is_list')) {
+            return array_is_list($array);
+        }
+
+        // Fallback for older PHP versions
+        return array_keys($array) === range(0, count($array) - 1);
     }
 }
